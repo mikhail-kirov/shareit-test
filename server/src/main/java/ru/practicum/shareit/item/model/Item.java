@@ -1,0 +1,44 @@
+package ru.practicum.shareit.item.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "items", schema = "public")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
+    @Column(name = "description", length = 100)
+    private String description;
+
+    @NotNull
+    @Column(name = "ownerId", nullable = false)
+    private Long ownerId;
+
+    @Column(name = "available")
+    private Boolean available;
+
+    @Column(name = "requestId")
+    private Long requestId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+}
