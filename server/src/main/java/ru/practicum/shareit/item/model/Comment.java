@@ -34,6 +34,6 @@ public class Comment {
     private LocalDateTime created;
 
     @NotNull
-    @Column(name = "itemId")
+    @Column(name = "item_id")
     private Long itemId;
 }

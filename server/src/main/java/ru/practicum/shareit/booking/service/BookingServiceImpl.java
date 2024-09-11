@@ -42,7 +42,8 @@ public class BookingServiceImpl implements BookingService {
             bookingRequestDto.setStatus(BookingStatus.WAITING);
         }
         Booking booking = bookingRepository.save(MappingBooking.mapToBooking(userId, bookingRequestDto, item));
-        return MappingBooking.mapToBookingResponseDto(booking, item);
+        BookingResponseDto test = MappingBooking.mapToBookingResponseDto(booking, item);
+        return test;
     }
 
     @Override

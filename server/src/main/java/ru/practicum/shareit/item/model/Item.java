@@ -30,13 +30,13 @@ public class Item {
     private String description;
 
     @NotNull
-    @Column(name = "ownerId", nullable = false)
+    @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 
     @Column(name = "available")
     private Boolean available;
 
-    @Column(name = "requestId")
+    @Column(name = "request_id")
     private Long requestId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemId", cascade = CascadeType.ALL, orphanRemoval = true)
