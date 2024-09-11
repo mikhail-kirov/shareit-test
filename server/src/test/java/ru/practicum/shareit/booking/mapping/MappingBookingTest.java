@@ -19,6 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.hasProperty;
 
+
 public class MappingBookingTest {
 
     private final LocalDateTime start = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
