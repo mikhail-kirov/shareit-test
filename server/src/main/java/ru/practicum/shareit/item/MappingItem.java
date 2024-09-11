@@ -73,7 +73,7 @@ public class MappingItem {
         comment.setText(commentDto.getText());
         comment.setAuthorName(user.getName());
         comment.setCreated(LocalDateTime.now());
-        comment.setItemId(item.getId());
+        comment.setItem(item.getId());
         return comment;
     }
 

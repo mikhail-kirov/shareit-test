@@ -35,5 +35,5 @@ public class Comment {
 
     @NotNull
     @Column(name = "item_id")
-    private Long itemId;
+    private Long item;
 }
