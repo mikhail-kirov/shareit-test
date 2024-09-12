@@ -19,13 +19,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
+@Transactional(readOnly = true)
 public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
     private final ValidationUser validationUser;
 
     @Override
+    @Transactional
     public ReqResponseDto createRequest(long userId, ReqRequestDto req) {
         validationUser.validationUserById(userId);
         Request request = requestRepository.save(MappingRequest.mapToRequest(userId, req));

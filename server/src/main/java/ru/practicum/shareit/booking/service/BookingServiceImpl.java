@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
+@Transactional(readOnly = true)
 public class BookingServiceImpl implements BookingService {
 
     private final ValidationUser validationUser;
@@ -35,6 +35,7 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public BookingResponseDto addBooking(Long userId, BookingRequestDto bookingRequestDto) {
         validationUser.validationUserById(userId);
         Item item = validationBooking.validationBookingDto(bookingRequestDto, userId);
@@ -46,6 +47,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public BookingResponseDto approvedBooking(Long userId, Long bookingId, Boolean approved) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new BadRequestException("Пользователь с ID " + userId + " не зарегистрирован"));

@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUserById(Long id) {
         User user = validationUser.validationUserById(id);
         log.info("Найден пользователь с ID {} найден: {}", id, user.getEmail());
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Collection<User> getUsers() {
         Collection<User> users = userRepository.findAll();
         log.info("Список пользователей сформирован и отправлен");

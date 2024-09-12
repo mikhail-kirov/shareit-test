@@ -55,25 +55,30 @@ public class MappingBooking {
 
     public static Collection<Booking> mapToBookingState(List<Booking> bookings, String state) {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        return switch (state) {
-            case "CURRENT" -> bookings.stream()
+        RequestState requestState;
+        try {
+            requestState = RequestState.valueOf(state);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Unknown state: " + state);
+        }
+        return switch (requestState) {
+            case RequestState.CURRENT -> bookings.stream()
                     .filter(booking -> booking.getStartTime().isBefore(currentDateTime) &&
                             booking.getEndTime().isAfter(currentDateTime))
                     .toList();
-            case "PAST" -> bookings.stream()
+            case RequestState.PAST -> bookings.stream()
                     .filter(booking -> booking.getEndTime().isBefore(currentDateTime))
                     .toList();
-            case "FUTURE" -> bookings.stream()
+            case RequestState.FUTURE -> bookings.stream()
                     .filter(booking -> booking.getStartTime().isAfter(currentDateTime))
                     .toList();
-            case "WAITING" -> bookings.stream()
+            case RequestState.WAITING -> bookings.stream()
                     .filter(booking -> booking.getStatus().equals(0))
                     .toList();
-            case "REJECTED" -> bookings.stream()
+            case RequestState.REJECTED -> bookings.stream()
                     .filter(booking -> booking.getStatus().equals(2))
                     .toList();
-            case "ALL" -> bookings;
-            default -> throw new BadRequestException("Unknown state: " + state);
+            case RequestState.ALL -> bookings;
         };
     }
 }

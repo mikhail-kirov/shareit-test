@@ -71,6 +71,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ItemDto getItemDtoById(Long userId, Long itemId) {
         validationUser.validationUserById(userId);
         Item item = validationItem.validationItemById(itemId);
@@ -78,6 +79,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Collection<ItemDto> getItemsDtoByUserId(Long userId) {
         validationUser.validationUserById(userId);
         Collection<Item> items = itemRepository.findByOwnerId(userId);
@@ -86,6 +88,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Collection<ItemDto> getItemsDtoBySearch(Long userId, String search) {
         validationUser.validationUserById(userId);
         Collection<Item> items = itemRepository.getItemBySearch(search);
